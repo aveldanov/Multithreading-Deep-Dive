@@ -12,8 +12,10 @@
  Mutex is blocking and releasing objects
  
  when the object is Mutex protected - the thread pinging it is in WAIT mode until Mutex is released
+ 
+ 
+ SWIFT can't do anything about threads. It uses either Libraries(GCD) or Objective-C(nsThread)
  */
-
 import UIKit
 
 
@@ -25,16 +27,29 @@ class SaveThread{
     }
     
     func someMethod(completion: ()->Void){
-        
         //locking our object
         pthread_mutex_lock(&mutex)
         
         // some data blah-blah
+        // call completion to pass the completion parameter
+        completion()
         
-        //unlocking object
-        pthread_mutex_unlock(&mutex)
+        
+        // in case there is a crash, our thread won't be unlocked. That is why we need to use DEFER. It will guaranteed to unlock thread
+        
+        defer{
+            //unlocking object
+            pthread_mutex_unlock(&mutex)
+        }
     }
 }
 
 
 
+var arr = [String]()
+
+let saveThread = SaveThread()
+
+saveThread.someMethod {
+    print("test")
+}
