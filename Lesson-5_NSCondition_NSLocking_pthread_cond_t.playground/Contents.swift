@@ -33,7 +33,7 @@ class ConditionMutexPrinter: Thread{
     private func printerMethod(){
         
         pthread_mutex_lock(&mutex)
-        print("Printer Enter")
+        print("Printer Enter", isAvailable)
         while !isAvailable {
             pthread_cond_wait(&condition, &mutex)
         }
@@ -65,6 +65,8 @@ class ConditionMutexWriter: Thread{
 
         isAvailable = true
         
+        // Any actions
+        
         pthread_cond_signal(&condition)
         
         defer{
@@ -73,3 +75,12 @@ class ConditionMutexWriter: Thread{
         print("Writer Exit")
     }
 }
+
+
+let conditionMutexPrinter = ConditionMutexPrinter()
+let conditionMutexWriter = ConditionMutexWriter()
+
+
+conditionMutexPrinter.start()
+conditionMutexWriter.start()
+
