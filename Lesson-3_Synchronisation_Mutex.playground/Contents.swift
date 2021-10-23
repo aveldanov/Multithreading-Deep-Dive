@@ -52,4 +52,7 @@ let saveThread = SaveThread()
 
 saveThread.someMethod {
     print("test")
+    arr.append("1 thread")
 }
+
+arr.append("2 thread")
