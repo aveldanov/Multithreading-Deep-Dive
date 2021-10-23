@@ -1,45 +1,10 @@
-/*
- 1. Thread
- 2. Operation
- 3. GCD
- */
-
 import Darwin
 import UIKit
-
-/*
-//LESSON 1
-
-// Unix - POSIX
-// All in C
-
- 
- // & -> address in C.
-
-var thread = pthread_t(bitPattern: 0) // created a thread
-var attribute = pthread_attr_t() // create attribute
-pthread_attr_init(&attribute) // &- from C-language
-pthread_create(&thread, &attribute, { pointer in
-    print("test1")
-    return nil
-}, nil)
-
-
-// Thread
-
-var nsthread = Thread {
-    print("test2")
-}
-
- 
-nsthread.start()
-
-*/
-
 
 
 // LESSON 2 - Quality Of Service (QoS)
 
+// C-level
 var pthread = pthread_t(bitPattern: 0)
 var attribute = pthread_attr_t()
 
@@ -53,6 +18,22 @@ pthread_create(&pthread, &attribute, { pointer in
     pthread_set_qos_class_self_np(QOS_CLASS_BACKGROUND, 0)
     return nil
 }, nil)
+
+
+// Same threads in Objective-C level
+
+let nsThread = Thread{
+    
+    print("test2")
+    // print qos of the current class
+    print(qos_class_self())
+}
+
+nsThread.qualityOfService = .userInteractive
+nsThread.start()
+
+print(qos_class_main())
+
 
 
 /*
