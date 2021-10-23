@@ -53,3 +53,21 @@ pthread_create(&pthread, &attribute, { pointer in
     pthread_set_qos_class_self_np(QOS_CLASS_BACKGROUND, 0)
     return nil
 }, nil)
+
+
+/*
+ 
+ QoS Types:
+ 
+ - userInteractive:
+ Used for animations, or updating UI.
+
+ - userInitiated:
+ Used for tasks like loading data from API, preventing the user from making interactions.
+
+ - utility:
+ Used for tasks that do not need to be tracked by the user.
+
+ - background:
+ Used for tasks like saving data in the local database or any maintenance code which is not on high priority.
+ */
