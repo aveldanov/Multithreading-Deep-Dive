@@ -3,6 +3,11 @@ import Foundation
 
 //LESSON 5 - NSCondition,NSLocking, pthread_cond_t
 
+/*
+ 
+ We use condition to ensure that data writing is finished before it used
+ 
+ */
 
 //let condition = NSCondition()
 
@@ -57,10 +62,11 @@ class ConditionMutexWriter: Thread{
         
         pthread_mutex_lock(&mutex)
         print("Writer Enter")
-        while !isAvailable {
-            pthread_cond_wait(&condition, &mutex)
-        }
+
         isAvailable = true
+        
+        pthread_cond_signal(&condition)
+        
         defer{
             pthread_mutex_unlock(&mutex)
         }
