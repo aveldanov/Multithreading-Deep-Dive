@@ -15,10 +15,19 @@
  
  
  SWIFT can't do anything about threads. It uses either Libraries(GCD) or Objective-C(nsThread)
+ 
+ 
+ 
+ 
+ C-level functions work 15-20 faster than GCD or NSLock!!!
  */
 import UIKit
 
 
+
+/*
+// C-level
+ 
 class SaveThread{
     private var mutex = pthread_mutex_t()
     
@@ -45,9 +54,29 @@ class SaveThread{
 }
 
 
+*/
+
+
+
+// Objective-C level
+
+class SaveThread{
+    private let lockMutex = NSLock()
+    
+    func someMethod(completion: ()->Void){
+        
+        lockMutex.lock()
+        completion()
+        
+        
+        defer{
+            lockMutex.unlock()
+        }
+    }
+}
+
 
 var arr = [String]()
-
 let saveThread = SaveThread()
 
 saveThread.someMethod {
