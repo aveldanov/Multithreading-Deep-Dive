@@ -30,6 +30,7 @@
 import UIKit
 
 
+// C-level
 
 class RecursiveMutexTest{
     private var mutex = pthread_mutex_t()
@@ -61,6 +62,8 @@ class RecursiveMutexTest{
 
 
 
+// Objective-C level
+
 let recursive = RecursiveMutexTest()
 recursive.firstTask()
 
@@ -75,7 +78,7 @@ class RecursiveThread: Thread{
     // let's use main function
     override func main() {
         recursiveLock.lock()
-        print("Thread acquired lock")
+        print("Thread acquired lock1")
         taskTwo()
         defer{
             recursiveLock.unlock()
@@ -88,7 +91,7 @@ class RecursiveThread: Thread{
     
     func taskTwo(){
         recursiveLock.lock()
-        print("Thread acquired lock")
+        print("Thread acquired lock2")
         
         defer{
             recursiveLock.unlock()
