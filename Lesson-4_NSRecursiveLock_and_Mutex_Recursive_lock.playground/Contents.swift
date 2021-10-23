@@ -30,8 +30,6 @@
 import UIKit
 
 
-//let recursiveLock = NSRecursiveLock()
-
 
 class RecursiveMutexTest{
     private var mutex = pthread_mutex_t()
@@ -39,7 +37,7 @@ class RecursiveMutexTest{
     
     init(){
         pthread_mutexattr_init(&attribute)
-        pthread_mutexattr_settype(&attribute, PTHREAD_MUTEX_RECURSIVE)
+//        pthread_mutexattr_settype(&attribute, PTHREAD_MUTEX_RECURSIVE)
         pthread_mutex_init(&mutex, &attribute)
     }
     
@@ -62,5 +60,44 @@ class RecursiveMutexTest{
 }
 
 
+
 let recursive = RecursiveMutexTest()
 recursive.firstTask()
+
+
+
+
+let recursiveLock = NSRecursiveLock()
+
+
+class RecursiveThread: Thread{
+    
+    // let's use main function
+    override func main() {
+        recursiveLock.lock()
+        print("Thread acquired lock")
+        taskTwo()
+        defer{
+            recursiveLock.unlock()
+        }
+        
+        print("exit main() ")
+
+    }
+    
+    
+    func taskTwo(){
+        recursiveLock.lock()
+        print("Thread acquired lock")
+        
+        defer{
+            recursiveLock.unlock()
+        }
+        
+        print("exit taskTwo ")
+    }
+}
+
+
+let thread = RecursiveThread()
+thread.start()
