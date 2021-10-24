@@ -12,18 +12,45 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+//
+//        for i in 0...200000{
+//            print(i)
+//        }
+        
+//------       //Concurrent Interations in multiple Threads, similar to FOR
+//        DispatchQueue.concurrentPerform(iterations: 200000) {
+//            print("\($0) times")
+//            print(Thread.current)
+//        }
+        
+        
+// ------ Same thing, but excluding MAIN. Not blockng UI!
+//        let queue = DispatchQueue.global(qos: .utility)
+//        queue.async {
+//            DispatchQueue.concurrentPerform(iterations: 200000) {
+//                print("\($0) times")
+//                print(Thread.current)
+//            }
+//        }
+        
+        myInactiveQueue()
+
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func myInactiveQueue(){
+        let inactiveQueue = DispatchQueue(label: "SwiftDevQueue",  attributes: [.concurrent, .initiallyInactive])
+        inactiveQueue.async {
+            print("Done")
+        }
+        
+        print("Not yet started....")
+        inactiveQueue.activate()
+        print("Queue is Active now! ")
+        inactiveQueue.suspend()
+        print("Pause")
+        inactiveQueue.resume()
+        print("Resumed!")
     }
-    */
-
 }
