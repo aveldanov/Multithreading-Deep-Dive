@@ -25,7 +25,7 @@ class MyViewController: UIViewController{
     }
     
     
-     //MARK: Actions
+    //MARK: Actions
     
     @objc func pressAction(){
         
@@ -37,7 +37,7 @@ class MyViewController: UIViewController{
     }
     
     
-     //MARK: Helpers
+    //MARK: Helpers
     func initButton(){
         
         button.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
@@ -49,7 +49,7 @@ class MyViewController: UIViewController{
         button.setTitleColor(.white, for: .normal)
         view.addSubview(button)
     }
-
+    
 }
 
 
@@ -57,32 +57,32 @@ class MyViewController: UIViewController{
 class SecondViewController: UIViewController{
     
     
-   var imageView = UIImageView()
+    var imageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "vc2"
         view.backgroundColor = .orange
         
+        //        let urlString = "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg"
+        //
+        //        let imageURL: URL = URL(string: urlString )!
+        //
+        //        if let data = try? Data(contentsOf: imageURL){
+        //            print("BOOM", data)
+        //                self.imageView.image = UIImage(data: data)
+        //
+        //            print(imageView.image)
+        //        }
         
         
-        let imageURL: URL = URL(string: "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg")!
-        
-        if let data = try? Data(contentsOf: imageURL){
-            print("BOOM", data)
-                self.imageView.image = UIImage(data: data)
-            
-            print(imageView.image)
-        }
-        
-
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         initImage()
-
+        
     }
     
     func initImage(){
@@ -90,12 +90,19 @@ class SecondViewController: UIViewController{
         imageView.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
         imageView.center = view.center
         view.addSubview(imageView)
+    }
+    
+    func loadImage(){
+        let urlString = "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg"
+        
+        let imageURL: URL = URL(string: urlString )!
+        let queue = DispatchQueue.global(qos: .utility)
         
         
     }
     
     
-
+    
 }
 
 
