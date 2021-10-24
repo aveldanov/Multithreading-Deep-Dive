@@ -64,6 +64,10 @@ class SecondViewController: UIViewController{
         self.title = "vc2"
         view.backgroundColor = .orange
         
+        loadImage()
+        
+        
+        // WRONG:
         //        let urlString = "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg"
         //
         //        let imageURL: URL = URL(string: urlString )!
@@ -98,6 +102,14 @@ class SecondViewController: UIViewController{
         let imageURL: URL = URL(string: urlString )!
         let queue = DispatchQueue.global(qos: .utility)
         
+        queue.async {
+            if let data = try? Data(contentsOf: imageURL){
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: data)
+
+                }
+            }
+        }
         
     }
     
