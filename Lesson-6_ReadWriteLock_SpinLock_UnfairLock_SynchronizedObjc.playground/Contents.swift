@@ -84,3 +84,19 @@ class UnfairLock{
 }
 
 
+/*
+ SynchronizedObjC
+ */
+
+class SynchronizedObjC{
+    private var lock = NSObject()
+    
+    var array = [Int]()
+
+    func someMethod(){
+        objc_sync_enter(lock)
+        array.append(1)
+        objc_sync_exit(lock)
+    }
+    
+}
