@@ -2,5 +2,10 @@
 <Timeline
    version = "3.0">
    <TimelineItems>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "file:///Users/aveldanov/AntonVeldanov/April2020/Swift/MultiThreading/Lesson-8_GCD_Pracrice_Sync-Async.playground#CharacterRangeLen=49&amp;CharacterRangeLoc=1745&amp;EndingColumnNumber=34&amp;EndingLineNumber=74&amp;StartingColumnNumber=57&amp;StartingLineNumber=72&amp;Timestamp=656738500.0431319"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
    </TimelineItems>
 </Timeline>

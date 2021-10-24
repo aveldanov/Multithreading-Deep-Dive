@@ -31,6 +31,7 @@ class MyViewController: UIViewController{
         
         
         let vc = SecondViewController()
+        vc.view.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -56,16 +57,40 @@ class MyViewController: UIViewController{
 class SecondViewController: UIViewController{
     
     
+   var imageView = UIImageView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "vc2"
         view.backgroundColor = .orange
+        
+        
+        
+        let imageURL: URL = URL(string: "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg")!
+        
+        if let data = try? Data(contentsOf: imageURL){
+            print("BOOM", data)
+                self.imageView.image = UIImage(data: data)
+            
+            print(imageView.image)
+        }
+        
 
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        initImage()
+
+    }
+    
+    func initImage(){
+        
+        imageView.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
+        imageView.center = view.center
+        view.addSubview(imageView)
+        
         
     }
     
