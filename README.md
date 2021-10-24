@@ -21,7 +21,7 @@ Deep Dive(C-level) Multithreading Practice
   **Priority inversion** - Technically speaking, priority inversion occurs when a queue with a lower quality of service is given higher system priority than a queue with a higher quality of service, or QoS.
  
 
-
+'<div>'
 
 ## Steps to Queue Management:
 ### 1) Global vs Main(serial queue)
