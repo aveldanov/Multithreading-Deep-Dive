@@ -28,6 +28,12 @@ class MyViewController: UIViewController{
         
         button.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
         
+        button.center = view.center
+        button.setTitle("Button", for: .normal)
+        button.backgroundColor = .green
+        button.layer.cornerRadius = 10
+        button.setTitleColor(.white, for: .normal)
+        view.addSubview(button)
     }
 
 }
