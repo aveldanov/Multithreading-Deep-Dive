@@ -9,16 +9,19 @@ Deep Dive(C-level) Multithreading Practice
 
 
 Steps to Queue Management:
-###1) Global vs Main(serial queue)
-###2) Set priority for Global
+### 1) Global vs Main(serial queue)
+### 2) Set priority for Global
 
 The QoS classes are:
 
 User-interactive: This represents tasks that must complete immediately in order to provide a nice user experience. Use it for UI updates, event handling and small workloads that require low latency. The total amount of work done in this class during the execution of your app should be small. This should run on the main thread.
+
 User-initiated: The user initiates these asynchronous tasks from the UI. Use them when the user is waiting for immediate results and for tasks required to continue user interaction. They execute in the high priority global queue.
+
 Utility: This represents long-running tasks, typically with a user-visible progress indicator. Use it for computations, I/O, networking, continuous data feeds and similar tasks. This class is designed to be energy efficient. This will get mapped into the low priority global queue.
+
 Background: This represents tasks that the user is not directly aware of. Use it for prefetching, maintenance, and other tasks that don’t require user interaction and aren’t time-sensitive. This will get mapped into the background priority global queue.
 
 
-###3) Sync vs Async
+### 3) Sync vs Async
 
