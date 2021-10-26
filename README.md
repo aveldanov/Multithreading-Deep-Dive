@@ -62,3 +62,17 @@ The QoS classes are:
 A semaphore consists of a threads queue and a counter value (type Int). The threads queue is used by the semaphore to keep track of waiting threads in FIFO order (The first thread entered into the queue will be the first to get access to the shared resource once it is available).
 
 Semaphore with `value == 1` (number of active threads), is MUTEX. So just one thread allowed.
+
+
+```
+let semaphore = DispatchSemaphore(value: 0)
+
+queue.async {
+    semaphore.wait() // value-=1 , leaving one thread available
+    sleep(3)
+    print(Thread.current)
+    print("Method 1")
+    semaphore.signal() // value+=1, adding one more thread
+}
+
+```
