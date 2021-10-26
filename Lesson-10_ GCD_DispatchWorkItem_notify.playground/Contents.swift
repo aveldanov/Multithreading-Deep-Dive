@@ -5,6 +5,8 @@
  
  DispatchWorkItem - abstraction level to wrap your task so you can start/cancel/ntoify/etc your task
  
+ NOTE!  GCD cannot cancel workItem if already started. YET Operations can, so many switch to operations
+ 
  */
 
 
@@ -14,9 +16,8 @@ import PlaygroundSupport
 //to execute long actions
 PlaygroundPage.current.needsIndefiniteExecution = true
 
-let urlString = "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg"
 
-
+// Concurrent
 
 class DispatchWorkItem1{
     
@@ -38,5 +39,78 @@ class DispatchWorkItem1{
 
 
 let dispatchWorkItem1 = DispatchWorkItem1()
+//dispatchWorkItem1.create()
 
-dispatchWorkItem1.create()
+
+//Serial
+class DispatchWorkItem2{
+    //Serial queue
+    private let queue = DispatchQueue(label: "DispatchWorkItem2")
+    
+    func create(){
+        queue.async {
+            sleep(2)
+            print(Thread.current)
+            print("Task1")
+        }
+        
+        queue.async {
+            sleep(2)
+            print(Thread.current)
+            print("Task2")
+        }
+        
+        
+        let workItem = DispatchWorkItem {
+            print(Thread.current)
+            print("Start work item task 3")
+        }
+        
+        workItem.cancel()
+        queue.async(execute: workItem)
+    }
+}
+
+
+let dispatchWorkItem2 = DispatchWorkItem2()
+//dispatchWorkItem2.create()
+
+
+
+
+
+//
+
+
+var view = UIView(frame: CGRect(x: 0, y: 0, width: 800, height: 800))
+var imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 800, height: 800))
+imageView.backgroundColor = .systemPink
+
+imageView.contentMode = .scaleAspectFit
+
+view.addSubview(imageView)
+
+
+PlaygroundPage.current.liveView = view
+
+
+let urlString = "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg"
+let imageURL = URL(string: urlString)!
+
+// classic Image Load
+
+
+func fetchImage(){
+    let queue = DispatchQueue.global(qos: .utility)
+    
+    queue.async {
+        if let data = try? Data(contentsOf: imageURL){
+            
+            DispatchQueue.main.async {
+                imageView.image = UIImage(data: data)
+            }
+        }
+    }
+}
+
+fetchImage()
