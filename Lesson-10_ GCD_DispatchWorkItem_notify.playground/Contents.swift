@@ -84,7 +84,7 @@ let dispatchWorkItem2 = DispatchWorkItem2()
 
 var view = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 528))
 var imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 320, height: 528))
-imageView.backgroundColor = .systemPink
+imageView.backgroundColor = .orange
 
 imageView.contentMode = .scaleAspectFit
 
@@ -127,10 +127,16 @@ func fetchImage2(){
     
     let workItem = DispatchWorkItem(qos: .userInteractive) {
         data = try? Data(contentsOf: imageURL)
+        print(Thread.current)
     }
+    queue.async(execute: workItem)
     
-    
-    
-    
+    // UI refreshed in MAIN. notify tracked when load finished and notifies main queue to update UI
+    workItem.notify(queue: .main) {
+        if let imageData = data{
+            imageView.image = UIImage(data: imageData)
+        }
+    }
 }
 
+fetchImage2()
