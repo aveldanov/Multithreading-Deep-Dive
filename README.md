@@ -64,7 +64,7 @@ A semaphore consists of a threads queue and a counter value (type Int). The thre
 Semaphore with `value == 1` (number of active threads), is MUTEX. So just one thread allowed.
 
 <details>
-  <summary markdown="span">example</summary>
+  <summary markdown="span">Semaphore Code Example</summary>
 
 ```
 let semaphore = DispatchSemaphore(value: 0)
@@ -78,7 +78,6 @@ queue.async {
 }
 
 ```
-
 </details>
 
 
