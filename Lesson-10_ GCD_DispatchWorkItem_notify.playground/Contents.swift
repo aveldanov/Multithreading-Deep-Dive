@@ -98,10 +98,10 @@ let urlString = "https://www.planetware.com/photos-large/F/france-paris-eiffel-t
 let imageURL = URL(string: urlString)!
 
 
- //MARK:  Classic Image Load
+ //MARK: 1 - Classic Image Load
 
 
-func fetchImage(){
+func fetchImage1(){
     let queue = DispatchQueue.global(qos: .utility)
     
     queue.async {
@@ -114,11 +114,11 @@ func fetchImage(){
     }
 }
 
-//fetchImage()
+//fetchImage1()
 
 
 
- //MARK: Dispatch WorkItem
+ //MARK: 2 - Dispatch WorkItem
 
 
 func fetchImage2(){
@@ -139,4 +139,26 @@ func fetchImage2(){
     }
 }
 
-fetchImage2()
+//fetchImage2()
+
+
+
+
+ //MARK: 3 - URLSession
+
+func fetchImage3(){
+    
+    let task = URLSession.shared.dataTask(with: imageURL) { data, response, error in
+        print(Thread.current)
+        
+        if let imageData = data {
+            
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: data)
+
+            }
+        }
+    }
+    
+    
+}
