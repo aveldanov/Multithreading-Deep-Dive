@@ -1,8 +1,18 @@
 
 // LESSON 11 - GCD Semaphore
 
+
+/*
+ 
+ A semaphore consists of a threads queue and a counter value (type Int). The threads queue is used by the semaphore to keep track of waiting threads in FIFO order (The first thread entered into the queue will be the first to get access to the shared resource once it is available).
+ 
+Semaphore with Value == 2, called MUTEX
+ */
+
 import UIKit
 import PlaygroundSupport
+
+
 
 
 PlaygroundPage.current.needsIndefiniteExecution = true
