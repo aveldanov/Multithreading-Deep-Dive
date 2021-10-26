@@ -61,4 +61,4 @@ The QoS classes are:
 
 A semaphore consists of a threads queue and a counter value (type Int). The threads queue is used by the semaphore to keep track of waiting threads in FIFO order (The first thread entered into the queue will be the first to get access to the shared resource once it is available).
 
-Semaphore with Value == 1 (number of active threads), is MUTEX. So just one thread allowed.
+Semaphore with `value == 1` (number of active threads), is MUTEX. So just one thread allowed.
