@@ -42,3 +42,11 @@ The QoS classes are:
 
 ### 3) Sync vs Async
 
+
+---
+
+
+### WorkItem
+ DispatchWorkItem - abstraction level to wrap your task so you can start/cancel/notify/etc your task
+ **NOTE!**  GCD cannot cancel workItem if already started. YET Operations can, so many switch to operations
+

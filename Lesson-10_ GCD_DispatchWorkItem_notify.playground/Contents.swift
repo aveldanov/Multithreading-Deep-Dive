@@ -3,7 +3,7 @@
 
 /*
  
- DispatchWorkItem - abstraction level to wrap your task so you can start/cancel/ntoify/etc your task
+ DispatchWorkItem - abstraction level to wrap your task so you can start/cancel/notify/etc your task
  
  NOTE!  GCD cannot cancel workItem if already started. YET Operations can, so many switch to operations
  
@@ -154,11 +154,14 @@ func fetchImage3(){
         if let imageData = data {
             
             DispatchQueue.main.async {
-                self.imageView.image = UIImage(data: data)
+                imageView.image = UIImage(data: imageData)
 
             }
         }
     }
     
+    task.resume()
     
 }
+
+fetchImage3()
