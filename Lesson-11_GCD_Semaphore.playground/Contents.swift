@@ -4,6 +4,8 @@
 
 /*
  
+ Semaphore - is a counter, that is used to syncronize threads.
+ 
  A semaphore consists of a threads queue and a counter value (type Int). The threads queue is used by the semaphore to keep track of waiting threads in FIFO order (The first thread entered into the queue will be the first to get access to the shared resource once it is available).
  
 Semaphore with value == 1, called MUTEX
@@ -22,6 +24,10 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 
 
 let queue = DispatchQueue(label: "Lesson11 Queue", attributes: .concurrent)
+
+
+//MARK: Example 1
+
 
 
 // Create semaphore. Value = 2 - number of threads can be passed.
@@ -56,18 +62,72 @@ queue.async {
 
 
 
+ //MARK: Example 2
 
-
-
-let semaphore2 = DispatchSemaphore(value: 2)
+// set value = 0, to skip
+let semaphore2 = DispatchSemaphore(value: 0)
 
 DispatchQueue.concurrentPerform(iterations: 10) { (id:Int) in
-    
-    print(Thread.current)
     semaphore2.wait(timeout: DispatchTime.distantFuture)
+    sleep(1)
+    print(Thread.current)
     print("Block print", id)
     
     semaphore2.signal()
 }
 
 
+
+
+//MARK: Example 3
+
+class SemaphoreTest{
+    
+    private let semaphore3 = DispatchSemaphore(value: 2)
+    
+    var array = [Int]()
+    
+    func methodWork(_ id: Int){
+        semaphore3.wait() // -=1
+        array.append(id)
+        print("test array", array.count)
+        Thread.sleep(forTimeInterval: 2)
+        semaphore3.signal() // +=1
+    }
+    
+    
+    
+    
+    func startAllThread(){
+        
+        DispatchQueue.global().async {
+            self.methodWork(111)
+            print(Thread.current)
+        }
+        
+        DispatchQueue.global().async {
+            self.methodWork(222)
+            print(Thread.current)
+        }
+        
+        DispatchQueue.global().async {
+            self.methodWork(333)
+            print(Thread.current)
+        }
+        
+        DispatchQueue.global().async {
+            self.methodWork(444)
+            print(Thread.current)
+        }
+        
+        DispatchQueue.global().async {
+            self.methodWork(555)
+            print(Thread.current)
+        }
+        
+    }
+    
+    
+    
+    
+}
