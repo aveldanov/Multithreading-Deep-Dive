@@ -1,6 +1,12 @@
 
 //LESSON 10 - GCD DispatchWorkItem, notify
 
+/*
+ 
+ DispatchWorkItem - abstraction level to wrap your task so you can start/cancel/ntoify/etc your task
+ 
+ */
+
 
 import UIKit
 import PlaygroundSupport
@@ -26,7 +32,6 @@ class DispatchWorkItem1{
             print(Thread.current)
             print("Task finished")
         }
-        
         queue.async(execute: workItem)
     }
 }
