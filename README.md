@@ -42,7 +42,8 @@ The QoS classes are:
 
 ### 3) Sync vs Async
 
-
+<br>
+<br>
 ----
 
 
@@ -54,6 +55,6 @@ The QoS classes are:
 
 
 ----
-#### Semaphore
+### Semaphore
 
 A semaphore consists of a threads queue and a counter value (type Int). The threads queue is used by the semaphore to keep track of waiting threads in FIFO order (The first thread entered into the queue will be the first to get access to the shared resource once it is available).
