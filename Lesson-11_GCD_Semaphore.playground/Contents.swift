@@ -17,7 +17,7 @@ import UIKit
 import PlaygroundSupport
 import Darwin
 
-
+/*
 
 
 PlaygroundPage.current.needsIndefiniteExecution = true
@@ -76,29 +76,29 @@ DispatchQueue.concurrentPerform(iterations: 10) { (id:Int) in
     semaphore2.signal()
 }
 
-
+*/
 
 
 //MARK: Example 3
 
 class SemaphoreTest{
     
-    private let semaphore3 = DispatchSemaphore(value: 2)
+   private let semaphore3 = DispatchSemaphore(value: 2)
     
-    var array = [Int]()
+   private var array = [Int]()
     
-    func methodWork(_ id: Int){
+   private func methodWork(_ id: Int){
         semaphore3.wait() // -=1
         array.append(id)
-        print("test array", array.count)
-        Thread.sleep(forTimeInterval: 2)
+        print("test array", array)
+        Thread.sleep(forTimeInterval: 1)
         semaphore3.signal() // +=1
     }
     
     
     
     
-    func startAllThread(){
+    public func startAllThread(){
         
         DispatchQueue.global().async {
             self.methodWork(111)
@@ -126,8 +126,10 @@ class SemaphoreTest{
         }
         
     }
-    
-    
-    
-    
+
 }
+
+
+let semaphoreTest = SemaphoreTest()
+
+semaphoreTest.startAllThread()
