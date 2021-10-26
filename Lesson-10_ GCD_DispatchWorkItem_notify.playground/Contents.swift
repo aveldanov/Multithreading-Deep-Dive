@@ -82,8 +82,8 @@ let dispatchWorkItem2 = DispatchWorkItem2()
 //
 
 
-var view = UIView(frame: CGRect(x: 0, y: 0, width: 800, height: 800))
-var imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 800, height: 800))
+var view = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 528))
+var imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 320, height: 528))
 imageView.backgroundColor = .systemPink
 
 imageView.contentMode = .scaleAspectFit
@@ -97,7 +97,8 @@ PlaygroundPage.current.liveView = view
 let urlString = "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg"
 let imageURL = URL(string: urlString)!
 
-// classic Image Load
+
+ //MARK:  Classic Image Load
 
 
 func fetchImage(){
@@ -107,10 +108,29 @@ func fetchImage(){
         if let data = try? Data(contentsOf: imageURL){
             
             DispatchQueue.main.async {
-                imageView.image = UIImage(data: data)
+            imageView.image = UIImage(data: data)
             }
         }
     }
 }
 
-fetchImage()
+//fetchImage()
+
+
+
+ //MARK: Dispatch WorkItem
+
+
+func fetchImage2(){
+    var data: Data?
+    let queue = DispatchQueue.global(qos: .utility)
+    
+    let workItem = DispatchWorkItem(qos: .userInteractive) {
+        data = try? Data(contentsOf: imageURL)
+    }
+    
+    
+    
+    
+}
+
