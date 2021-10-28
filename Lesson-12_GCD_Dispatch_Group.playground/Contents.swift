@@ -24,12 +24,26 @@ class DispatchGroupTest1{
             print("2")
             
         }
+        // Similar to WorkItem
+        groupRed.notify(queue: .main) {
+            print("Finished All")
+        }
     }
 }
 
-
-
 let dispatchGroupTest1 = DispatchGroupTest1()
+//dispatchGroupTest1.loadInfo()
 
+class DispatchGroupTest2{
+    
+    
+    
+    private let queueConcurrent = DispatchQueue(label: "DispatchGroupQueue2", attributes: .concurrent)
+    private let groupBlack = DispatchGroup()
+    
+    func loadInfo(){
 
-dispatchGroupTest1.loadInfo()
+    }
+}
+
+let dispatchGroupTest2 = DispatchGroupTest2()
