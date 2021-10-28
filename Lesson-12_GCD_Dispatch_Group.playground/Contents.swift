@@ -43,6 +43,18 @@ class DispatchGroupTest2{
     
     func loadInfo(){
 
+        groupBlack.enter()
+        queueConcurrent.async{
+            sleep(1)
+            print("1")
+            self.groupBlack.leave()
+        }
+        groupBlack.enter()
+        queueConcurrent.async {
+            sleep(1)
+            print("2")
+            self.groupBlack.leave()
+        }
     }
 }
 
