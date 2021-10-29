@@ -25,7 +25,23 @@ var array = [Int]()
 //print(array, array.count)
 
 
-class SafeArray(){
+class SafeArray<T>{
+    private var array = [T]()
+    private let queue = DispatchQueue(label: "Safe Array Queue", attributes: .concurrent)
     
+    public func appendItem(_ value: T){
+        queue.async( flags: .barrier) {
+            self.array.append(value)
+        }
+        
+    }
     
+    public var valueArray:[T]{
+        var result = [T]()
+        // wait until async and only after that sync adding:
+        queue.sync {
+            result = self.array
+        }
+        return result
+    }
 }
