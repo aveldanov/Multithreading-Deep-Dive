@@ -205,3 +205,54 @@ let queue1 = OperationQueue()
 queue1.addOperation(operationA)
 ```
 </details>
+
+
+
+----
+
+## BlockOperation & WaitUntilFinished & OperationCancel
+
+
+
+<details>
+  <summary markdown="span">WaitUntil Code Example</summary>
+
+```
+class WaitOperationTest{
+    
+    private let operationQueue = OperationQueue()
+    
+    func check(){
+        operationQueue.addOperation {
+            sleep(1)
+            print("Test 1")
+        }
+        
+        operationQueue.addOperation {
+            sleep(2)
+            print("Test 2")
+        }
+        
+        // Barrier that blocks below until above is finisged
+        operationQueue.waitUntilAllOperationsAreFinished()
+        operationQueue.addOperation {
+            print("Test 3")
+        }
+        
+        operationQueue.addOperation {
+            print("Test 4")
+        }
+    }
+}
+
+let waitOperationTest = WaitOperationTest()
+waitOperationTest.check()
+
+PRINT OUT:
+Test 1
+Test 2
+Test 3
+Test 4
+
+```
+</details>
