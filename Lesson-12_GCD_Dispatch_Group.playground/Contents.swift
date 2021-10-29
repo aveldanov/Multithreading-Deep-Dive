@@ -1,6 +1,4 @@
-
 // LESSON 12 - GCD Dispatch Group
-
 import UIKit
 import PlaygroundSupport
 
@@ -147,3 +145,47 @@ func asyncLoadImage(imageURL: URL,
     }
     
 }
+
+
+func asyncGroup(){
+    let aGroup = DispatchGroup()
+    
+    for i in 0...3{
+        aGroup.enter()
+        asyncLoadImage(imageURL: URL(string: urlStrings[i])!,
+                       runQueue: .global(),
+                       completionQueue: .main) { image, error in
+            guard let image = image else{
+                return
+            }
+            
+            images.append(image)
+            aGroup.leave() // once images is loaded, we can leave the group
+        }
+    }
+    // notify in MAIN thread all images loaded
+    aGroup.notify(queue: .main) {
+        for i in 0...3{
+            view.imageViews[i].image = images[i]
+        }
+    }
+}
+
+
+func asyncURLSession(){
+    for i in 4...7{
+        let url = URL(string: urlStrings[i-4])!
+        let request = URLRequest(url: url)
+        
+     URLSession.shared.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                view.imageViews[i].image = UIImage(data: data!)
+            }
+        
+     }.resume()
+        
+    }
+    
+}
+//asyncGroup()
+asyncURLSession()
