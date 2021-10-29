@@ -115,3 +115,54 @@ class DispatchGroupTest1{
 ```
 </details>
 
+
+----
+
+## DispatchBarrier
+
+The `.barrier` flag means that it will wait until every currently running block in the queue is finished executing before it executes. Other blocks will queue up behind it and be executed when the barrier dispatch is done.
+
+When the barrier is executing, it essentially acts as a serial queue. That is, the barrier is the only thing executing. After the barrier finishes, the queue goes back to being a normal concurrent queue. 
+
+<details>
+  <summary markdown="span">DispatchBarrier Code Example</summary>
+
+```
+private let concurrentQueue = DispatchQueue(label: "com.gcd.dispatchBarrier", attributes: .concurrent)
+for value in 1...5 {
+    concurrentQueue.async() {
+        print("async \(value)")
+    }
+}
+for value in 6...10 {
+    concurrentQueue.async(flags: .barrier) {
+        print("barrier \(value)")
+    }
+}
+for value in 11...15 {
+    concurrentQueue.async() {
+        print("sync \(value)")
+    }
+}
+
+
+PRINTOUT:
+async 1
+async 5
+async 2
+async 3
+async 4
+barrier 6
+barrier 7
+barrier 8
+barrier 9
+barrier 10
+sync 11
+sync 12
+sync 13
+sync 14
+sync 15
+
+
+```
+</details>

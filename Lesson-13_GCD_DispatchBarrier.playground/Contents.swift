@@ -29,19 +29,47 @@ class SafeArray<T>{
     private var array = [T]()
     private let queue = DispatchQueue(label: "Safe Array Queue", attributes: .concurrent)
     
+    // lock write
     public func appendItem(_ value: T){
         queue.async( flags: .barrier) {
             self.array.append(value)
         }
-        
     }
     
+    // lock read
     public var valueArray:[T]{
         var result = [T]()
-        // wait until async and only after that sync adding:
+        // wait until async is done and only after that sync adding:
         queue.sync {
             result = self.array
         }
         return result
+    }
+}
+
+var arraySafe = SafeArray<Int>()
+
+DispatchQueue.concurrentPerform(iterations: 10) { index in
+    arraySafe.appendItem(index)
+}
+
+//print(arraySafe.valueArray)
+
+
+
+private let concurrentQueue = DispatchQueue(label: "com.gcd.dispatchBarrier", attributes: .concurrent)
+for value in 1...5 {
+    concurrentQueue.async() {
+        print("async \(value)")
+    }
+}
+for value in 6...10 {
+    concurrentQueue.async(flags: .barrier) {
+        print("barrier \(value)")
+    }
+}
+for value in 11...15 {
+    concurrentQueue.async() {
+        print("sync \(value)")
     }
 }
