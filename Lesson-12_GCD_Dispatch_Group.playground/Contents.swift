@@ -138,8 +138,10 @@ func asyncLoadImage(imageURL: URL,
             completionQueue.async {
                 competion(UIImage(data: data), nil)
             }
-        }catch{
-            
+        }catch let error{
+            completionQueue.async {
+                competion(nil,error)
+            }
             
         }
     }
