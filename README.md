@@ -175,3 +175,13 @@ sync 15
 ## DispatchSource
 
 An object that coordinates the processing of specific low-level system events, such as file-system events, timers, and UNIX signals. Like timers, observe changes in a file on the file system, socket management etc
+
+
+
+
+
+## Operation & OperationQueue & OperationBlock
+----
+One of key difference GCD and Operation, that in Operation the task can be canceled even when it is started execution. In GCD once queue started - no way to cancel a task.
+
+
