@@ -90,6 +90,14 @@ class EightImage: UIView{
         images.append(UIImageView(frame: CGRect(x: 100, y: 300, width: 100, height: 100)))
         images.append(UIImageView(frame: CGRect(x: 0, y: 400, width: 100, height: 100)))
         images.append(UIImageView(frame: CGRect(x: 100, y: 400, width: 100, height: 100)))
+        
+        
+        for i in 0...7{
+            
+            images[i].contentMode = .scaleAspectFit
+            addSubview(images[i])
+            
+        }
 
     }
     
