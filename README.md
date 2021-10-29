@@ -80,9 +80,38 @@ queue.async {
 ```
 </details>
 
+----
 
 ## DispatchGroup
 
 Groups allow you to aggregate a set of tasks and synchronize behaviors on the group. You attach multiple work items to a group and schedule them for asynchronous execution on the same queue or different queues. When all work items finish executing, the group executes its completion handler. You can also wait synchronously for all tasks in the group to finish executing.
 
+<details>
+  <summary markdown="span">Semaphore Code Example</summary>
+
+```
+class DispatchGroupTest1{
+    
+    private let queueSerial = DispatchQueue(label: "DispatchGroupQueue1")
+    private let groupRed = DispatchGroup()
+    
+    func loadInfo(){
+        queueSerial.async(group: groupRed){
+            sleep(1)
+            print("1")
+        }
+        
+        queueSerial.async(group: groupRed){
+            sleep(1)
+            print("2")
+        }
+        // Similar to WorkItem
+        groupRed.notify(queue: .main) {
+            print("Finished All")
+        }
+    }
+}
+
+```
+</details>
 
