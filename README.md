@@ -81,6 +81,8 @@ queue.async {
 </details>
 
 
+## DispatchGroup
 
+Groups allow you to aggregate a set of tasks and synchronize behaviors on the group. You attach multiple work items to a group and schedule them for asynchronous execution on the same queue or different queues. When all work items finish executing, the group executes its completion handler. You can also wait synchronously for all tasks in the group to finish executing.
 
 
