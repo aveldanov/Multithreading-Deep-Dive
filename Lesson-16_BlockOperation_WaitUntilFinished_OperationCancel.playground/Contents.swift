@@ -90,4 +90,28 @@ class WaitOperationTest{
 }
 
 let waitOperationTest = WaitOperationTest()
-waitOperationTest.check()
+//waitOperationTest.check()
+
+
+class WaitOperationTest2{
+    private let operationQueue = OperationQueue()
+
+    func check2(){
+        // create operation
+        let operation1 = BlockOperation{
+            sleep(1)
+            print("Test 1")
+        }
+        
+        let operation2 = BlockOperation{
+            sleep(2)
+            print("Test 2")
+        }
+        
+        // add operation
+        operationQueue.addOperations([operation1,operation2], waitUntilFinished: true)
+        
+    }
+    
+    
+}
