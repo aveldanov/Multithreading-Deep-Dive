@@ -99,19 +99,44 @@ class WaitOperationTest2{
     func check2(){
         // create operation
         let operation1 = BlockOperation{
-            sleep(1)
+            sleep(2)
             print("Test 1")
         }
         
         let operation2 = BlockOperation{
-            sleep(2)
+            sleep(1)
             print("Test 2")
         }
         
         // add operation
+        //waitUntilFinished - barrier for the order
         operationQueue.addOperations([operation1,operation2], waitUntilFinished: true)
         
     }
     
     
 }
+
+let waitOperationTest2 = WaitOperationTest2()
+//waitOperationTest2.check2()
+
+
+class CompletionBlockTest{
+    private let operationQueue = OperationQueue()
+
+    
+    func check3(){
+        let operation1 = BlockOperation{
+            sleep(1)
+            print("Test 1 ")
+        }
+        // Completion Block
+        operation1.completionBlock = {
+            print("Completion Block Finished")
+        }
+        operationQueue.addOperation(operation1)
+    }
+}
+
+let completionBlockTest = CompletionBlockTest()
+completionBlockTest.check3()

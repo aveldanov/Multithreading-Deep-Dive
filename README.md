@@ -256,3 +256,32 @@ Test 4
 
 ```
 </details>
+
+
+
+<details>
+  <summary markdown="span">CompletionBlock Code Example</summary>
+
+```
+class CompletionBlockTest{
+    private let operationQueue = OperationQueue()
+
+    
+    func check3(){
+        let operation1 = BlockOperation{
+            sleep(1)
+            print("Test 1 ")
+        }
+        // Completion Block
+        operation1.completionBlock = {
+            print("Completion Block Finished")
+        }
+        operationQueue.addOperation(operation1)
+    }
+}
+
+let completionBlockTest = CompletionBlockTest()
+completionBlockTest.check3()
+
+```
+</details>
