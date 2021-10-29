@@ -178,10 +178,30 @@ An object that coordinates the processing of specific low-level system events, s
 
 
 
-
+----
 
 ## Operation & OperationQueue & OperationBlock
-----
 One of key difference GCD and Operation, that in Operation the task can be canceled even when it is started execution. In GCD once queue started - no way to cancel a task.
 
 
+<details>
+  <summary markdown="span">Operations Code Example</summary>
+
+```
+print(Thread.current) //main
+
+class OperationA: Operation{
+    
+    override func main() {
+        print("inside",Thread.current)
+        print("Test Operation") // global when with Operation
+    }
+}
+
+let operationA = OperationA()
+//operationA.start()
+
+let queue1 = OperationQueue()
+queue1.addOperation(operationA)
+```
+</details>
