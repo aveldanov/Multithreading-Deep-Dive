@@ -147,6 +147,7 @@ for value in 11...15 {
 
 
 PRINTOUT:
+// NOTE: The race condition for the first 5 items:
 async 1
 async 5
 async 2
@@ -166,3 +167,11 @@ sync 15
 
 ```
 </details>
+
+
+
+----
+
+## DispatchSource
+
+An object that coordinates the processing of specific low-level system events, such as file-system events, timers, and UNIX signals. Like timers, observe changes in a file on the file system, socket management etc
